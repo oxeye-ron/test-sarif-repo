@@ -1,0 +1,22 @@
+---
+name: UploadSarif
+on:
+  workflow_dispatch:
+
+jobs:
+  workflow:
+    runs-on: ubuntu-20.04
+    permissions:
+      # required for all workflows
+      security-events: write
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Upload sarif file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: test.sarif
